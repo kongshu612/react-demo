@@ -1,0 +1,30 @@
+.node-wrapper{
+    position: relative;
+    min-width: 300px;
+    line-height: 32px;
+    .tool-wrapper{
+        position: absolute;
+        right: 10px;
+        .tool{
+            margin:auto 5px;
+        }
+        color:transparent;        
+    }
+    &:hover{
+        .tool-wrapper{
+            color:inherit;
+        }
+    }
+}
+
+.edit-tree.ant-tree{
+    .ant-tree-treenode{
+        width:100%;
+    }
+    .ant-tree-node-content-wrapper{
+        flex:1;
+    }
+    .ant-tree-switcher{
+        line-height: 32px;
+    }
+}

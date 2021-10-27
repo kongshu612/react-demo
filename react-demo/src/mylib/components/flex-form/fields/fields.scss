@@ -1,0 +1,12 @@
+.flex-array-item{
+    border-bottom: 1px solid gray;
+    margin:10px auto;
+    padding-bottom: 10px;
+    padding-top:40px;
+    position: relative;
+    .array-btn{
+        right: 10px;
+        top:0;
+        position: absolute;
+    }
+}
