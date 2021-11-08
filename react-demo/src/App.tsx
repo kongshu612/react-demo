@@ -20,7 +20,7 @@ function App() {
         <div className="App">
           <div className="left-panel">
             <Collapse>
-              <Panel header='灵活的表单' key='0'>
+              <Panel header='动态表单' key='0'>
                 {
                   getFlexFormRouting()
                 }

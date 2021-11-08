@@ -39,13 +39,28 @@ export function convertToFlexFieldElements(dataObj: any, metas: MetaConfig[] = [
 }
 
 
-
+// used to construct the flexprops which will be used to construct field
+// we target to determine the name, label, fieldtype of the field, and also, we will pass rules
+// options, layout settings e.g. to the FieldProps from meta.
+// if result returned from this function, it meas it need to render in DOM, otherwise, it is just a
+// virtual node, no DOM render required.
 const getFlexProps = (serializeName: string, name: NamePath, value?: any, meta?: MetaConfig): FlexFieldProps | undefined => {
+    // if value is null, and meta is not null, use meta to construct the FlexFieldProps,
+    // by defautl fieldType is textbox,
     if (value == null && !!meta) {
         return {fieldType:'textbox', ...meta } as FlexFieldProps;
-    } else if (_.isPlainObject(value)) {
+    } 
+    // if value is an object,return underfined if meta is null, otherwilse, use meta to render
+    // if meta is null, it means current node is a virtual node, we don't need to render it in dom
+    // it is just groupped by logic, e.g. {userInfo:{firstName:'San',lastName:'Zhang'}},by default 
+    // userInfo don't need to render, we only need to render firstName, lastName, unless, we specify 
+    // meta for userInfo emplicit.
+    else if (_.isPlainObject(value)) {
         return !meta ? undefined : {fieldType:'textbox', ...meta } as FlexFieldProps;
-    } else if (_.isArray(value) && (meta?.isList || (value.length > 0 && _.isPlainObject(value[0])))) {
+    } 
+    // if value is an array and (we specify from meta that value is a list, or the items in the array is an 
+    //  object), for this branch, it meas each item of the array is a subtree.
+    else if (_.isArray(value) && (meta?.isList || (value.length > 0 && _.isPlainObject(value[0])))) {
         const label = meta?.label || `${_.last(_.toArray(name))}`;
         return {
             name,
@@ -54,6 +69,8 @@ const getFlexProps = (serializeName: string, name: NamePath, value?: any, meta?:
             isList: true,
         }
     }
+    // by default case, we will determine the fieldType by value type, like number->inputnumber, bool -> switch
+    // others text.
     else {
         const fieldType = fieldTypeResolver(value);
         const label = meta?.label || `${_.last(_.toArray(name))}`;
@@ -67,10 +84,14 @@ const getFlexProps = (serializeName: string, name: NamePath, value?: any, meta?:
 }
 
 
-
+// consturct a tree under the specified parent, tree is mapped both from dataObject and metas.
+// every node of the Object or metas must have a node in the tree, but not every node need to render in DOM
+// the condition is if the data prop of the tree node exist, data prop will contain all necessery info
+// to render Field.
 const convertToNodes = (parent: IFlexTreeNode, dataObj: any, visitedNode: Map<string, IFlexTreeNode>, metasMap: { [k: string]: MetaConfig }) => {
     const { serializeName: prefixName, name: prefixNamePath } = parent;
     for (let [key, value] of Object.entries(dataObj)) {
+        // construct the serializedName and namePath
         let serializeName = prefixName === ROOT_NAME ? key : `${prefixName}${NAME_SPLIT}${key}`;
         let meta = metasMap[serializeName];
         if (meta) {
@@ -78,12 +99,17 @@ const convertToNodes = (parent: IFlexTreeNode, dataObj: any, visitedNode: Map<st
         }
         let name = [..._.toArray(prefixNamePath), key] as NamePath;
         let node: IFlexTreeNode = { serializeName, children: [], name };
+        // insert current node to the children of parent
         parent.children?.push(node);
         visitedNode.set(serializeName, node);
+        // construct the data props, which will be used to render field if not empty
         node.data = getFlexProps(serializeName, name, value, meta);
+        // if the child value is an object we just call the function iterate
         if (_.isPlainObject(value) && value != null) {
             convertToNodes(node, value, visitedNode, metasMap);
-        } else if (node.data?.isList) {
+        } 
+        // if the child Fields are list, we call the builFlexTree, as for list, we treat it as a sub tree.
+        else if (node.data?.isList) {
             let children = [];
             let maxlen = meta.arrayChildren?.length || 1;
             for (let i = 0; i < maxlen; i++) {
@@ -102,13 +128,16 @@ const convertToNodes = (parent: IFlexTreeNode, dataObj: any, visitedNode: Map<st
     }
 }
 
+// Tree-Shake, we only keep treenode if it has data, for others we just ignore
+// we only check the first level of items which have data props, it may contains data in the 
+// second/third, or more level, we will do it later.
 function consolidateTreeNode(node: IFlexTreeNode): IFlexTreeNode[] {
     let result = [];
     if (!!node.data) {
         result.push(node!);
         return result;
     }
-    if (!node.children || node.children.length == 0) {
+    if (!node.children?.length) {
         return [];
     }
     for (let child of node.children) {
@@ -123,8 +152,9 @@ function consolidateFlexTree(root: IFlexTreeNode): IFlexTreeNode {
     queue.push(root);
     while (queue.length > 0) {
         let node = queue.shift() as IFlexTreeNode;
-        if (node.children?.length == 0) { continue; }
+        if (!node.children?.length) { continue; }
         let children: IFlexTreeNode[] = [];
+        // it meas every child will be render in DOM as Field
         node.children?.forEach(child => {
             children.push(...consolidateTreeNode(child));
         });
@@ -134,6 +164,8 @@ function consolidateFlexTree(root: IFlexTreeNode): IFlexTreeNode {
     return root;
 }
 
+
+// This is the main funciton to construct the Render Tree
 function buildFlexTree(dataObj: any, metas: MetaConfig[], skipSort?: boolean): IFlexTreeNode {
     let treeNode: Map<string, IFlexTreeNode> = new Map<string, IFlexTreeNode>();
     let metasObj: { [k: string]: MetaConfig } = {};
@@ -150,7 +182,7 @@ function buildFlexTree(dataObj: any, metas: MetaConfig[], skipSort?: boolean): I
     }
 
     convertToNodes(root, dataObj, treeNode, metasObj);
-
+   
     for (let [key, meta] of Object.entries(metasObj)) {
         const name = _.toArray(meta.name);
         let parent = root;

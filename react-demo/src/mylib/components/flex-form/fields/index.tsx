@@ -26,7 +26,7 @@ const FlexField: React.FC<InnerFlexFieldProps> = ({
             setOptions(opts as any);
         });
     }, [options$]);
-    // 注意这边的...rest,之前有个bug, 没加这个，结果，它跟form 管理不是，因为这里面有onChange,value....等一堆东西.
+    // 注意这边的...rest,之前有个bug, 没加这个，结果，它跟form 关联不上，因为这里面有onChange,value....等一堆东西.
     const getToolbar=()=>{
         if(!editable){
             return null;

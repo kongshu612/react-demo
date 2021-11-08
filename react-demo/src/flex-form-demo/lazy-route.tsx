@@ -16,6 +16,9 @@ export function getFlexFormRouting(){
     return (
         <ul>
             <li><Link to='/flex-form/basic'>基本功能的演示</Link></li>
+            <li>
+                <Link to='/flex-form/editable'>编辑模式只读功能演示</Link>
+            </li>
         </ul>
         
     )
