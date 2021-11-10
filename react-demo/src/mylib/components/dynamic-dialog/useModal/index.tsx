@@ -46,7 +46,7 @@ export function useDynamicDialog():[OpenHookFunc,React.ReactElement]{
         
     },[actionQueue])
 
-    const openDynamicDialog = React.useCallback((props:InternalDyanmicDialogProps)=>{
+    const openDialogHook = React.useCallback((props:InternalDyanmicDialogProps)=>{
         const {hideFooter:originalHideFooter,footer,okText,cancelText,onOk,onCancel,centered=true}=props;
         const mergedhideFooter = originalHideFooter||
             (!footer&&!okText&&!cancelText&&!onOk&&!onCancel);
@@ -89,7 +89,7 @@ export function useDynamicDialog():[OpenHookFunc,React.ReactElement]{
         };
     },[]);
     const openDialog = React.useMemo(()=>({
-        openDynamicDialog
+        openDynamicDialog:openDialogHook
     }),[]);
 
     return [openDialog,<ElementsHolder ref={holderRef}/>];

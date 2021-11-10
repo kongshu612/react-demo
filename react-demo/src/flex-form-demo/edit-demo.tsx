@@ -59,7 +59,7 @@ const DynamicFieldDemo=()=>{
     return (
         <div className="each-example">
             <h2>这个用例展示，表单中的某些字段依赖其他字段的值来显示或者隐藏</h2>
-            <p>当喜欢的水果字段选择其他时，第三个详情字段会出现</p>
+            <p>当<b>喜欢的水果</b>字段选择其他时，第三个<b>详情字段</b>会出现</p>
             <span>Serialize Form is {JSON.stringify(val)}</span>
             <div style={{width:'50%'}}>
             <FlexForm 
@@ -118,7 +118,7 @@ const EditableFieldDemo=()=>{
     return (
         <div className="each-example">
             <h2>这个用例展现表单在非编辑模式与编辑模式的切换</h2>
-            <p>表单的编辑模式指，表单提供字段层级的编辑与保存的切换，所有的字段都会出现编辑或者保存的按钮</p>
+            <p><b>表单的编辑模式</b>指，表单可以让所有的字段处于只读模式，只提供字段级别的编辑功能</p>
             <p>在字段层级上，当表单的编辑功能打开后，字段会相应的出现编辑按钮</p>
             <div>
                 <label htmlFor="editable">是否打开表单可编辑功能</label>

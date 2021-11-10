@@ -162,8 +162,8 @@ const GroupDemo = () => {
 
     return (
         <div className="each-example">
-            <h2>这个用例是用来证明，Form的数据结构中存在着虚拟节点，这些节点会被自动过滤掉</h2>
-            <p>账号详情，地址详情，联系人信息都是三个分组，联系人信息因为没有配置标签，所以，我们自动过滤掉了</p>
+            <h2 style={{marginBottom:'10px'}}>这个用例是用来证明，Form的数据结构中存在着虚拟节点，这些节点会被自动过滤掉</h2>
+            <p ><b>账号详情，地址详情，联系人信息</b>是三个分组，<b>联系人信息</b>因为没有配置标签，被自动过滤掉了，它的子节点<b>主要联系人，访问过的城市</b>被提高了一个层次</p>
             <span>Serialize Form is {JSON.stringify(val)}</span>
             <div style={{width:'60%'}}>
                 <FlexForm 
@@ -245,7 +245,7 @@ const BasicFlexForm:React.FC=()=>{
         <>
         <div style={{lineHeight:'30px',fontSize:'18px',height:'30px',fontWeight:600,margin:'20px 10px'}}>
             基于AntD Form 定义了一个FlexForm组件,我们只需给出Form的初始值，以及额外的元数据定义，那么，FlexForm会自动产生表单的定义。这样我们的表单完全由外部或者后端数据驱动</div>
-        <div style={{height:'30px',margin:'10px',fontStyle:'italic',fontSize:'14px'}}>基本的用法可以简化成<b>&lt;FlexForm initializeValue=val metas=metas &gt;&lt;FlexForm/&gt;</b></div>
+        <div style={{height:'30px',marginTop:'50px',fontStyle:'italic',fontSize:'14px'}}>基本的用法可以简化成<b>&lt;FlexForm initializeValue=val metas=metas &gt;&lt;FlexForm/&gt;</b></div>
         <BasicDemo/>
         <GroupDemo/>
         <BasicListDemo/>

@@ -4,6 +4,7 @@ import './App.css';
 import {BrowserRouter,Link,Switch} from 'react-router-dom';
 import { getFlexFormRoute, getFlexFormRouting } from './flex-form-demo/lazy-route';
 import {Collapse} from 'antd';
+import { getDialogRoute, getDialogRouting } from './dialog-demo/lazy-route';
 
 const {Panel}=Collapse;
 
@@ -24,13 +25,21 @@ function App() {
                 {
                   getFlexFormRouting()
                 }
-              </Panel>        
+              </Panel> 
+              <Panel header='动态弹框' key='1'>
+                {
+                  getDialogRouting()
+                }
+              </Panel>       
             </Collapse>
           </div>
           <div className="right-panel">        
             <Switch>
               {
                 getFlexFormRoute()
+              }
+              {
+                getDialogRoute()
               }
             </Switch>
           </div>
