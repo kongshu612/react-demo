@@ -1,0 +1,21 @@
+.user-card{
+    position: relative;
+    padding: 5px 20px;
+    .link{
+        color:red;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    .tool{
+        color:red;
+    }
+}
+
+.account-card{
+    background-color:lightgray;
+    padding:0px 5px;
+    .tool {
+        color:red;
+    }
+}

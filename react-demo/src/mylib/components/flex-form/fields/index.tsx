@@ -44,6 +44,7 @@ const FlexField: React.FC<InnerFlexFieldProps> = ({
                 {fieldType === 'switch' ? <Switch {...rest} disabled={readonly} /> : null}
                 {fieldType === 'inputnumber' ? <InputNumber {...rest} readOnly={readonly} /> : null}
                 {fieldType === 'select' ? <Select options={options} {...rest} disabled={readonly}></Select> : null}
+                {fieldType === 'multiselect'?<Select options={options} mode='multiple' disabled={readonly} {...rest}></Select>:null}
                 {
                     fieldType === 'radiobox' ?
                         <Radio.Group options={options} {...rest} disabled={readonly}>

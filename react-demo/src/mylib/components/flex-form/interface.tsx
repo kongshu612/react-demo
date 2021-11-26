@@ -7,7 +7,7 @@ import React from "react";
 
 
 
-const FieldTypes = tuple('textbox', 'inputnumber', 'switch', 'select', 'checkbox', 'radiobox');
+const FieldTypes = tuple('textbox', 'inputnumber', 'switch', 'select', 'checkbox', 'radiobox','multiselect');
 export type FieldType = typeof FieldTypes[number];
 
 export interface FlexFieldProps {

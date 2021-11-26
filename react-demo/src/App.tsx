@@ -5,6 +5,7 @@ import {BrowserRouter,Link,Switch} from 'react-router-dom';
 import { getFlexFormRoute, getFlexFormRouting } from './flex-form-demo/lazy-route';
 import {Collapse} from 'antd';
 import { getDialogRoute, getDialogRouting } from './dialog-demo/lazy-route';
+import { getFundRoute, getfundRouting } from './fund-manager-demo/lazy-Loading';
 
 const {Panel}=Collapse;
 
@@ -30,7 +31,10 @@ function App() {
                 {
                   getDialogRouting()
                 }
-              </Panel>       
+              </Panel> 
+              <Panel header='基金管理页面' key='2'>
+                {getfundRouting()}
+              </Panel>      
             </Collapse>
           </div>
           <div className="right-panel">        
@@ -40,6 +44,9 @@ function App() {
               }
               {
                 getDialogRoute()
+              }
+              {
+                getFundRoute()
               }
             </Switch>
           </div>

@@ -147,16 +147,16 @@ const Demo1:React.FC=()=>{
             <p>弹框可以居中弹框，也可以在某个Dom元素周围弹框</p>
             <p>表单序列化后的值{JSON.stringify(value)}</p>
             <div style={{margin:'100px 0 100px 100px'}}>
-            <div style={{marginBottom:'20px'}}>
+                <div style={{marginBottom:'20px'}} key='0'>
                     <label htmlFor="mode" style={{marginRight:'20px',fontWeight:600}}>选择弹框的位置</label>
                     <Radio.Group id='mode' value={mode}>
-                        {modes.map(it=><Radio value={it} onClick={e=>onSelectMode(it)}>{it}</Radio>)}
+                        {modes.map(it=><Radio key={it} value={it} onClick={e=>onSelectMode(it)}>{it}</Radio>)}
                     </Radio.Group>
                 </div>
-                <div style={{marginBottom:'20px'}}>
+                <div style={{marginBottom:'20px'}} key='1'>
                     <label htmlFor="formopt" style={{marginRight:'20px',fontWeight:600}}>选择要打开的表单</label>
                     <Radio.Group id='formopt' value={val}>
-                        {FormsArray.map(it=><Radio value={it} onClick={e=>onSelectForm(it)}>{it.label}</Radio>)}
+                        {FormsArray.map(it=><Radio key={it.label} value={it} onClick={e=>onSelectForm(it)}>{it.label}</Radio>)}
                     </Radio.Group>
                 </div>
                 <Button htmlType='button' onClick={openForm}>打开表单</Button>
