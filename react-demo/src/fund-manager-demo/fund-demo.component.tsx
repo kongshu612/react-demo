@@ -103,9 +103,9 @@ const FundDemo:React.FC=()=>{
                     <div className="left">
                         <FundList/>
                     </div>
-                    <div className='transfer' onClick={()=>includeToFund()}>
-                        <div className="center">
-                            <div className={transferClassName}>
+                    <div className='transfer' >
+                        <div className="center" onClick={()=>includeToFund()}>
+                            <div className={transferClassName} >
                                 <PlusCircleOutlined style={{fontSize:'16px',color:'white'}}/>
                             </div>
                             <div className='label'>添加</div>
