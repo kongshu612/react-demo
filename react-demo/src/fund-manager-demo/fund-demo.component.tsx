@@ -96,7 +96,7 @@ const FundDemo:React.FC=()=>{
     return (
         <div className="demo-wrapper">
             <h1>基金管理页面。自定义的状态管理器实现多组件之间的通信</h1>
-            <p>左边是历史投资人的信息，右边是待投资的基金，选择投资人信息，导入到新的基金里面，假设投资公司名称保持不变</p>
+            <p>左边是历史投资人的信息，右边是待投资的基金，选择投资人信息，导入到新的基金里面，投资公司名称具有唯一性</p>
             
             <DataSourceContext.Provider value={context}>
                 <div className="fund-wrapper">
