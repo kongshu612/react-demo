@@ -245,7 +245,7 @@ const BasicFlexForm:React.FC=()=>{
         <>
         <div style={{lineHeight:'30px',fontSize:'18px',height:'30px',fontWeight:600,margin:'20px 10px'}}>
             基于AntD Form 定义了一个FlexForm组件,我们只需给出Form的初始值，以及额外的元数据定义，那么，FlexForm会自动产生表单的定义。这样我们的表单完全由外部或者后端数据驱动</div>
-        <div style={{height:'30px',marginTop:'50px',fontStyle:'italic',fontSize:'14px'}}>基本的用法可以简化成<b>&lt;FlexForm initializeValue=val metas=metas &gt;&lt;FlexForm/&gt;</b></div>
+        <div style={{height:'30px',marginTop:'50px',fontStyle:'italic',fontSize:'14px'}}>基本的用法可以简化成<b>&lt;FlexForm initializeValue=val metas=metas &gt;&lt;/FlexForm&gt;</b></div>
         <BasicDemo/>
         <GroupDemo/>
         <BasicListDemo/>
